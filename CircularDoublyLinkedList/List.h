@@ -93,12 +93,6 @@ public:
         }
     }
 
-    // Adiciona um Item no início da lista
-    void push_front(const Item& data) {
-        // Utilizamos a função insertAt para inserir o dado no índice 0 da lista
-        insertAt(data, 0);
-    }
-
     // Adiciona um Item ao final da lista
     void push_back(const Item& data) {
         Node *current = head; // ponteiro que percorrerá a lista até chegar no último nó da lista
@@ -149,36 +143,6 @@ public:
             remove->previous->next = head;
             delete remove;
             m_size--;
-        }
-    }
-
-    // Insere um novo Item na posição index da lista
-    // Sendo uma lista com n elementos, esta função só deve inserir
-    // O novo elemento se e somente se 0 <= index <= n
-    // Caso contrário, uma exceção será lançada
-    // Função com complexidade O(n) no pior caso
-    void insertAt(const Item& data, int index) {
-        if(index >= 0 && index <= m_size){
-            Node *aux = head->next; // ponteiro que percorrerá a lista
-            int cont = 1;
-            while(cont < index){
-                aux = aux->next;
-                cont++;
-            }
-            if(index == 0){
-                aux = head->previous;
-                Node *prox = aux->next->next; // ponteiro para o nó de índice 1
-                aux->next->next = new Node(data, head, prox);
-                prox->previous = aux->next->next;
-                head->next = aux->next->next;
-            }else{
-                Node *prox = aux->next;
-                aux->next = new Node(data, aux, prox);
-                prox->previous = aux->next;
-            }
-            m_size++;
-        }else{
-            throw std::runtime_error("fail: índice informado não existe na lista");
         }
     }
 
@@ -349,33 +313,6 @@ public:
 
         }else{
             return false;
-        }
-    }
-
-    // Inverte a ordem dos elementos na lista
-    // Esta função deve ter complexidade O(1) no pior caso
-    void reverse() {
-        Node *aux; // ponteiro que percorrerá a lista
-        Node *prox = head->next; // ponteiro para o próximo nó
-        Node *ant = head->previous; // ponteiro para o nó anterior
-        
-        // Faz com que o último elemento seja o primeiro e o primeiro seja o último
-        head->next = ant;
-        head->previous = prox;
-        aux = head->previous;
-        int cont = 0;
- 
-        Node *aux2; // ponteiro auxiliar que percorre a lista e armazena os ponteiros originais da lista, antes que sofram modificações
-
-        // Neste laço, será percorrido toda a lista invertendo os nós
-        while(cont < m_size){
-            aux2 = aux->next;
-            prox = aux->next;
-            ant = aux->previous;
-            aux->next = ant;
-            aux->previous = prox;
-            aux = aux2;
-            cont++;
         }
     }
 
