@@ -146,7 +146,7 @@ int main() {
 		else if(tokens[0] == "equals") {
 			int l = std::stoi(tokens[1]);
 			int t = std::stoi(tokens[2]);
-			cout << "Lista " << l << " equal " << t << ": " << listas[l]->equals(*listas[t]) << endl;
+			cout << "Lista " << l << " equal " << t << " : " << listas[l]->equals(*listas[t]) << endl;
 		}
 
 		// merge l t -> intercala a lsita l na lista t
